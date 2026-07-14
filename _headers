@@ -1,0 +1,10 @@
+# Cloudflare Pages security headers — applied to every response.
+# The pages are fully self-contained (inline <style> and <script>, no external
+# assets), so 'unsafe-inline' is required for them to run, while default-src
+# 'self' blocks any outbound resource loads.
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'

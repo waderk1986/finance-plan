@@ -1,0 +1,17 @@
+{
+    "name": "finance-plan",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Interactive College Financing Plan — a fillable version of the U.S. Department of Education's College Financing Plan for Technical College of the Rockies (TCR).",
+    "scripts": {
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint": "htmlhint \"**/*.html\"",
+        "check": "npm run format:check && npm run lint",
+        "audit": "npm audit --omit=dev"
+    },
+    "devDependencies": {
+        "htmlhint": "^1.1.4",
+        "prettier": "^3.6.2"
+    }
+}

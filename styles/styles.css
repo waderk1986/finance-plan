@@ -1,0 +1,309 @@
+/*** Shopping Sheet - Default Styles ***/
+/*** Elements ***/
+html,
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: bold;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 18px;
+}
+
+h2 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+h3 {
+    font-size: 12px;
+}
+
+p {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+strong {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+}
+
+em {
+    font-style: italic;
+}
+
+li {
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+a,
+a:visited {
+    color: #000;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+/*** Main Container ***/
+
+#sheet {
+    margin-top: 10px;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0px 10px;
+}
+
+/*** Main header ***/
+.main-header {
+    margin-bottom: 5px;
+}
+
+.main-header #date-stamp {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.main-header .school-heading {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.main-header .pull-right {
+    float: right;
+}
+
+.main-header #school-name {
+    margin-bottom: 5px;
+}
+
+#download-btn {
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    padding: 5px 10px;
+    margin: 0;
+    text-decoration: none;
+    background: #ececec;
+    color: #000;
+    font-family: sans-serif;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out;
+}
+
+#download-btn:active {
+    background: #cccccc;
+}
+
+/*** Panels ***/
+
+.panel {
+    margin-bottom: 5px;
+    padding: 1px;
+    background-color: #436689;
+    border-radius: 6px;
+}
+
+.panel.simple {
+    background-color: #fff;
+    border-width: 1.2px;
+    border-style: solid;
+}
+
+.panel-header {
+    color: #fff;
+    padding: 5px 05px 0px 5px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.panel-body {
+    background-color: #fff;
+    margin: 2px;
+    padding: 15px 20px 5px 5px;
+}
+
+/*** Tables ***/
+table {
+    width: 100%;
+    position: relative;
+    border: 2px solid #4a6686;
+    border-collapse: separate;
+    margin-bottom: 5px;
+    border-radius: 6px;
+}
+
+thead th {
+    background-color: #4a6686;
+    color: #fff;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+table.accent {
+    border: 2px solid #898943;
+}
+
+table.accent thead th {
+    background-color: #898943;
+}
+
+td {
+    font-size: 12px;
+    padding: 2px 2px;
+    width: 120px;
+}
+
+tr:nth-child(even) td {
+    background-color: #ccc;
+}
+
+tr td:first-child {
+    width: auto;
+}
+
+tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#costs-table .header td {
+    font-weight: bold;
+    padding-bottom: 2px;
+    width: 150px;
+}
+
+/*** Aside - Comparisons  ***/
+.aside-group {
+    padding: 5px;
+    border-color: #436689;
+}
+
+.aside-group.simple {
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.aside-group .address-container {
+    line-height: 1.4;
+}
+
+.aside-group .info-header h2 {
+    font-size: 11px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.aside-group.simple a {
+    color: #000;
+}
+
+#glossary-list ul {
+    margin-top: 10px;
+}
+
+/*** Misc ***/
+.note,
+.no-margin-note {
+    font-size: 11px;
+    font-weight: normal;
+    margin: 5px 0px;
+    clear: both;
+    display: block;
+}
+
+.no-margin-note {
+    margin: 0;
+}
+
+.inline-note {
+    display: block;
+    clear: both;
+}
+
+.pad-left {
+    padding-left: 15px !important;
+}
+
+.default-font {
+    color: #000000;
+}
+
+.clearfix {
+    clear: both;
+}
+
+ul#other-options-list {
+    list-style-type: disc;
+    padding: 6px 0 0 15px;
+    -webkit-columns: 1;
+    -moz-columns: 1;
+    columns: 1;
+}
+
+.page-break {
+    page-break-after: always;
+    height: 10px;
+}
+
+.indent {
+    padding-left: 10px;
+}
+
+@media print, screen and (min-width: 850px) {
+    #sheet {
+        width: 800px;
+    }
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    section {
+        display: inline-block;
+        float: left;
+        width: 49%;
+    }
+
+    aside {
+        float: right;
+        height: 100%;
+        width: 49%;
+        margin-left: 15px;
+    }
+}
+
+@media print {
+    * {
+        color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .xml-download {
+        display: none !important;
+    }
+}
