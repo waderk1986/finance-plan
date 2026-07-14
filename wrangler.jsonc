@@ -1,0 +1,11 @@
+{
+    // Static-asset Worker: serves the repo's HTML/CSS/JS directly, with no
+    // Worker script (no "main"). The _headers file still applies security headers.
+    "name": "finance-plan",
+    "compatibility_date": "2025-07-14",
+    "assets": {
+        "directory": "./public",
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "404-page",
+    },
+}
