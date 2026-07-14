@@ -511,14 +511,18 @@
             /* ============================================================================
            INSTITUTION CONFIG  —  EDIT THESE VALUES FOR YOUR SCHOOL
            ----------------------------------------------------------------------------
-           Everything in this object prefills automatically on load. The financial-aid
-           officer only enters the per-student aid amounts below. Dollar figures are
+           Everything in this object prefills automatically on load. Dollar figures are
            plain whole numbers (no $ or commas). Rates/fees are strings incl. the % sign.
+
+           The cost-of-attendance figures below prefill the Estimated Cost of Attendance
+           fields, which stay editable so the officer can override them for a given
+           student. The loan rates and contact block are display-only.
            ============================================================================ */
             var CONFIG = {
                 schoolName: 'Technical College of the Rockies (TCR)',
 
-                /* Standard cost-of-attendance components (whole dollars, per year) */
+                /* Default cost-of-attendance components (whole dollars, per year).
+                   These prefill the editable fields at the top of the form. */
                 costs: {
                     tuitionAndFees: 0, // TODO: replace with your real figure
                     housingFoodOnCampus: 0, // TODO
@@ -571,10 +575,12 @@
                     return num('value' in el ? el.value : el.textContent);
                 }
 
-                /* Write a computed/display value into an element. */
+                /* Write a value into an element: form fields take .value, display spans take text. */
                 function set(id, text) {
                     var el = get(id);
-                    if (el) el.textContent = text;
+                    if (!el) return;
+                    if ('value' in el) el.value = text;
+                    else el.textContent = text;
                 }
 
                 function pad(n) {
@@ -614,19 +620,15 @@
 
                 /* ---------- auto-computed fields ---------- */
                 function recompute() {
-                    var c = CONFIG.costs;
-                    var coaOn =
-                        c.tuitionAndFees +
-                        c.housingFoodOnCampus +
-                        c.booksAndSupplies +
-                        c.transportation +
-                        c.otherEducationCosts;
-                    var coaOff =
-                        c.tuitionAndFees +
-                        c.housingFoodOffCampus +
-                        c.booksAndSupplies +
-                        c.transportation +
-                        c.otherEducationCosts;
+                    /* Cost of attendance is read from the fields, which CONFIG prefills but
+                       the officer can override per student. */
+                    var tuition = fieldNum('costs-tuition-and-fees');
+                    var books = fieldNum('costs-books-and-supplies');
+                    var transportation = fieldNum('costs-transportation');
+                    var other = fieldNum('costs-other-education-costs');
+                    var shared = tuition + books + transportation + other;
+                    var coaOn = shared + fieldNum('costs-housing-and-food-on-campus');
+                    var coaOff = shared + fieldNum('costs-housing-and-food-off-campus');
                     set('costs-total-estimated-cost-on-campus', money(coaOn));
                     set('costs-total-estimated-cost-off-campus', money(coaOff));
 
@@ -953,38 +955,76 @@
                     <tr class="row">
                         <td><span class="line-text">Tuition and Fees</span></td>
                         <td class="line-value text-center" colspan="2">
-                            <span class="dollar">$</span><span id="costs-tuition-and-fees" class="amount">X,XXXX</span>
+                            <span class="dollar">$</span
+                            ><input
+                                id="costs-tuition-and-fees"
+                                class="field currency"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="0"
+                            />
                         </td>
                     </tr>
                     <tr class="row">
                         <td><span class="line-text">Housing and Food</span></td>
                         <td class="line-value text-center">
                             <span class="dollar">$</span
-                            ><span id="costs-housing-and-food-on-campus" class="amount">X,XXXX</span>
+                            ><input
+                                id="costs-housing-and-food-on-campus"
+                                class="field currency"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="0"
+                            />
                         </td>
                         <td class="line-value text-center">
                             <span class="dollar">$</span
-                            ><span id="costs-housing-and-food-off-campus" class="amount">X,XXXX</span>
+                            ><input
+                                id="costs-housing-and-food-off-campus"
+                                class="field currency"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="0"
+                            />
                         </td>
                     </tr>
                     <tr class="row">
                         <td><span class="line-text">Books and Supplies</span></td>
                         <td class="line-value text-center" colspan="2">
                             <span class="dollar">$</span
-                            ><span id="costs-books-and-supplies" class="amount">X,XXXX</span>
+                            ><input
+                                id="costs-books-and-supplies"
+                                class="field currency"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="0"
+                            />
                         </td>
                     </tr>
                     <tr class="row">
                         <td><span class="line-text">Transportation</span></td>
                         <td class="line-value text-center" colspan="2">
-                            <span class="dollar">$</span><span id="costs-transportation" class="amount">X,XXXX</span>
+                            <span class="dollar">$</span
+                            ><input
+                                id="costs-transportation"
+                                class="field currency"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="0"
+                            />
                         </td>
                     </tr>
                     <tr class="row">
                         <td><span class="line-text">Other Education Costs</span></td>
                         <td class="line-value text-center" colspan="2">
                             <span class="dollar">$</span
-                            ><span id="costs-other-education-costs" class="amount">X,XXXX</span>
+                            ><input
+                                id="costs-other-education-costs"
+                                class="field currency"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="0"
+                            />
                         </td>
                     </tr>
                     <tr>
