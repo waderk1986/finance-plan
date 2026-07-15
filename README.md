@@ -6,16 +6,21 @@ The site is **static and self-contained** — no build step, no framework, no ru
 
 ## Layout
 
-The deployable site lives in [`public/`](./public); everything else at the repo root is tooling.
+The deployable site lives in [`public/`](./public) — a single self-contained `index.html` plus `_headers`. Everything else at the repo root is tooling.
 
-| URL         | File                   | Purpose                                                                      |
-| ----------- | ---------------------- | ---------------------------------------------------------------------------- |
-| `/`         | `public/index.html`    | The interactive fillable College Financing Plan.                             |
-| `/template` | `public/template.html` | The original read-only ED template (uses `public/styles`, `public/scripts`). |
+| URL | File                | Purpose                                          |
+| --- | ------------------- | ------------------------------------------------ |
+| `/` | `public/index.html` | The interactive fillable College Financing Plan. |
+
+> The original read-only ED template (`template.html`) was removed from the published site once the form went to production. It remains in git history if it's ever needed for reference.
 
 ## Institution configuration
 
-Per-school constants (school name, standard cost-of-attendance figures, loan rates/fees, and the financial-aid office contact block) live in the clearly-marked `CONFIG` object near the top of the `<script>` in `public/index.html`. Update those values and the form prefills automatically; the officer only enters the per-student aid amounts.
+Per-school settings live in the clearly-marked `CONFIG` object near the top of the `<script>` in `public/index.html`:
+
+- **`schoolName`** and **`contact`** — display-only; render in the header and the "For More Information" block.
+- **`costs`** — prefill the Estimated Cost of Attendance fields, which stay **editable** so the officer can adjust them per program/student.
+- **`loans.offered`** — `false` for TCR, which does not participate in the federal Direct Loan program. This keeps the official ED "Loan Options" table but marks it **Not offered**, hides the amount fields and rate notes, and locks the amounts to `$0`. If TCR ever begins offering federal loans, set `offered: true` and fill in the four rate strings.
 
 ## Auto-computed fields
 

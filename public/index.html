@@ -472,6 +472,24 @@
             .residence-control label {
                 font-size: 11px;
             }
+            /* Loans not offered: keep the official ED table structure, but hide the
+               amount fields and rate notes and say so plainly. Driven by
+               CONFIG.loans.offered via the .not-offered class on the table. */
+            .loan-not-offered,
+            .loan-not-offered-note {
+                display: none;
+            }
+            #loan-options-table.not-offered .loan-amount,
+            #loan-options-table.not-offered .inline-note {
+                display: none;
+            }
+            #loan-options-table.not-offered .loan-not-offered {
+                display: inline;
+                font-style: italic;
+            }
+            #loan-options-table.not-offered .loan-not-offered-note {
+                display: table-row;
+            }
             .xml-download {
                 text-align: right;
             }
@@ -532,12 +550,19 @@
                     otherEducationCosts: 0, // TODO
                 },
 
-                /* Federal Direct Loan terms (strings, include the % sign) */
+                /* Federal Direct Loan terms.
+                   TCR does not participate in the federal Direct Loan program, so
+                   `offered: false` keeps the official ED table but marks it Not offered
+                   and hides the amount fields and rate notes.
+                   If that ever changes: set offered = true and fill in the four rates
+                   below as strings including the % sign (e.g. '6.52%' interest and
+                   '1.057%' origination fee for 2026-27). */
                 loans: {
-                    subsidizedRate: 'x.xx%', // TODO
-                    subsidizedOriginationFee: 'x.xx%', // TODO
-                    unsubsidizedRate: 'x.xx%', // TODO
-                    unsubsidizedOriginationFee: 'x.xx%', // TODO
+                    offered: false,
+                    subsidizedRate: 'N/A',
+                    subsidizedOriginationFee: 'N/A',
+                    unsubsidizedRate: 'N/A',
+                    unsubsidizedOriginationFee: 'N/A',
                 },
 
                 /* Financial Aid Office contact block */
@@ -608,6 +633,24 @@
                         'loan-options-federal-direct-unsubsidized-loan-origination_fee',
                         CONFIG.loans.unsubsidizedOriginationFee,
                     );
+
+                    /* Loans not offered: mark the table, zero the amounts and lock them so
+                       nothing can be entered or exported as an offered loan. */
+                    if (!CONFIG.loans.offered) {
+                        var loanTable = get('loan-options-table');
+                        if (loanTable) loanTable.classList.add('not-offered');
+                        var loanIds = [
+                            'loan-options-federal-direct-subsidized',
+                            'loan-options-federal-direct-unsubsidized',
+                        ];
+                        for (var li = 0; li < loanIds.length; li++) {
+                            var loanEl = get(loanIds[li]);
+                            if (loanEl) {
+                                loanEl.value = '0';
+                                loanEl.readOnly = true;
+                            }
+                        }
+                    }
 
                     set('info-school-name', CONFIG.contact.schoolName);
                     set('info-financial-aid-office', CONFIG.contact.officeName);
@@ -1321,6 +1364,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="loan-not-offered-note">
+                            <td colspan="2">
+                                <span class="no-margin-note"
+                                    >Technical College of the Rockies does not participate in the federal Direct Loan
+                                    program, so federal student loans are not available through TCR.</span
+                                >
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <span class="line-text"
@@ -1338,15 +1389,17 @@
                                 </span>
                             </td>
                             <td>
-                                <span class="dollar">$</span
-                                ><input
-                                    id="loan-options-federal-direct-subsidized"
-                                    class="field currency"
-                                    type="text"
-                                    inputmode="numeric"
-                                    placeholder="0"
-                                />
-                                <span class="per-year">/ yr</span>
+                                <span class="loan-amount"
+                                    ><span class="dollar">$</span
+                                    ><input
+                                        id="loan-options-federal-direct-subsidized"
+                                        class="field currency"
+                                        type="text"
+                                        inputmode="numeric"
+                                        placeholder="0"
+                                    />
+                                    <span class="per-year">/ yr</span></span
+                                ><span class="loan-not-offered">Not offered</span>
                             </td>
                         </tr>
                         <tr>
@@ -1366,15 +1419,17 @@
                                 </span>
                             </td>
                             <td>
-                                <span class="dollar">$</span
-                                ><input
-                                    id="loan-options-federal-direct-unsubsidized"
-                                    class="field currency"
-                                    type="text"
-                                    inputmode="numeric"
-                                    placeholder="0"
-                                />
-                                <span class="per-year">/ yr</span>
+                                <span class="loan-amount"
+                                    ><span class="dollar">$</span
+                                    ><input
+                                        id="loan-options-federal-direct-unsubsidized"
+                                        class="field currency"
+                                        type="text"
+                                        inputmode="numeric"
+                                        placeholder="0"
+                                    />
+                                    <span class="per-year">/ yr</span></span
+                                ><span class="loan-not-offered">Not offered</span>
                             </td>
                         </tr>
 
