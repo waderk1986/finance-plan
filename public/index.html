@@ -542,12 +542,15 @@
                 /* Default cost-of-attendance components (whole dollars, per year).
                    These prefill the editable fields at the top of the form. */
                 costs: {
-                    tuitionAndFees: 0, // TODO: replace with your real figure
-                    housingFoodOnCampus: 0, // TODO
-                    housingFoodOffCampus: 0, // TODO
-                    booksAndSupplies: 0, // TODO
-                    transportation: 0, // TODO
-                    otherEducationCosts: 0, // TODO
+                    /* Left at 0 deliberately: TCR's cost of attendance varies by program,
+                       so the officer enters these per student in the form. Set a figure
+                       here only if it is standard across every program. */
+                    tuitionAndFees: 0,
+                    housingFoodOnCampus: 0,
+                    housingFoodOffCampus: 0,
+                    booksAndSupplies: 0,
+                    transportation: 0,
+                    otherEducationCosts: 0,
                 },
 
                 /* Federal Direct Loan terms.
@@ -1377,12 +1380,12 @@
                                 <span class="line-text"
                                     >Federal Direct Subsidized Loan<span class="inline-note">
                                         (<span id="loan-options-federal-direct-subsidized-rate" class="percent"
-                                            >x.xx%</span
+                                            >N/A</span
                                         >
                                         interest rate) (<span
                                             id="loan-options-federal-direct-subsidized-loan-origination_fee"
                                             class="interest"
-                                            >x.xx%</span
+                                            >N/A</span
                                         >
                                         origination fee)</span
                                     >
@@ -1407,12 +1410,12 @@
                                 <span class="line-text"
                                     >Federal Direct Unsubsidized Loan<span class="inline-note">
                                         (<span id="loan-options-federal-direct-unsubsidized-rate" class="percent"
-                                            >x.xx%</span
+                                            >N/A</span
                                         >
                                         interest rate) (<span
                                             id="loan-options-federal-direct-unsubsidized-loan-origination_fee"
                                             class="interest"
-                                            >x.xx%</span
+                                            >N/A</span
                                         >
                                         origination fee)</span
                                     >
